@@ -1,69 +1,139 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState } from "react";
+import SmoothScrollProvider from "@/components/animations/SmoothScrollProvider";
+import CustomCursor from "@/components/animations/CustomCursor";
+import LightTorchFollower from "@/components/animations/LightTorchFollower";
+import Navbar from "@/components/navigation/Navbar";
+import MobileMenu from "@/components/navigation/MobileMenu";
+import CinematicHero from "@/components/hero/CinematicHero";
+import PinnedStorytelling from "@/components/sections/PinnedStorytelling";
+import BrandPhilosophy from "@/components/sections/BrandPhilosophy";
+import HorizontalExhibition from "@/components/collections/HorizontalExhibition";
+import SignaturePieces from "@/components/products/SignaturePieces";
+import ArtOfIllumination from "@/components/sections/ArtOfIllumination";
+import BespokeAtelier from "@/components/atelier/BespokeAtelier";
+import PrivateWorld from "@/components/invitation/PrivateWorld";
+import FinalCinematic from "@/components/sections/FinalCinematic";
+import LuxuryFooter from "@/components/footer/LuxuryFooter";
+import InvitationModal from "@/components/invitation/InvitationModal";
+import AtelierInquiryModal from "@/components/atelier/AtelierInquiryModal";
 
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
+  const [isAtelierModalOpen, setIsAtelierModalOpen] = useState(false);
+  const [invitationInitialInterest, setInvitationInitialInterest] = useState<string>("");
+  const [atelierPrefilledScope, setAtelierPrefilledScope] = useState<string>("");
+  const [ambientMode, setAmbientMode] = useState<"nocturne" | "golden" | "clarity">("nocturne");
+
+  const handleOpenInvitation = (interest?: string) => {
+    if (interest) setInvitationInitialInterest(interest);
+    setIsInvitationModalOpen(true);
+  };
+
+  const handleOpenAtelier = (scope?: string) => {
+    if (scope) setAtelierPrefilledScope(scope);
+    setIsAtelierModalOpen(true);
+  };
+
+  const handleExploreCollections = () => {
+    const el = document.getElementById("collections-exhibition");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleExploreTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <SmoothScrollProvider>
+      {/* 1. Desktop Luxury Custom Magnetic Cursor */}
+      <CustomCursor />
+
+      {/* 2. Interactive Soft Warm Light Torch Follower */}
+      <LightTorchFollower />
+
+      {/* 3. Luxury Floating & Frosted Navigation Bar */}
+      <Navbar
+        onRequestAccess={() => handleOpenInvitation("Private Collector Allocation")}
+        onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+        ambientMode={ambientMode}
+        onToggleAmbient={(mode) => setAmbientMode(mode)}
+      />
+
+      {/* 4. Full-Screen Luxury Mobile Drawer */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        onRequestAccess={() => handleOpenInvitation("Private Mobile Access")}
+      />
+
+      <main className="min-h-screen flex flex-col bg-[#050A30]">
+        {/* 01. THE ARRIVAL — Cinematic Hero Opening Sequence */}
+        <CinematicHero
+          onRequestAccess={() => handleOpenInvitation("Cinematic Hero Access")}
+          onExploreCollections={handleExploreCollections}
+          ambientMode={ambientMode}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        {/* 02. PINNED CINEMATIC STORYTELLING — Pinned 3-Scene Film Sequence */}
+        <PinnedStorytelling />
+
+        {/* 03. THE HOUSE — Editorial Chiaroscuro & Asymmetric Composition */}
+        <BrandPhilosophy />
+
+        {/* 04. THE GALLERY — Horizontal Product Exhibition (Scroll-Linked) */}
+        <HorizontalExhibition
+          onRequestInquiry={(categoryTitle) =>
+            handleOpenAtelier(`Inquiry: ${categoryTitle}`)
+          }
+        />
+
+        {/* 05. THE OBJECTS — Signature Sculptural Pieces Showcase */}
+        <SignaturePieces
+          onRequestAcquisition={(pieceName) =>
+            handleOpenInvitation(`Signature Piece Acquisition: ${pieceName}`)
+          }
+        />
+
+        {/* 06. THE ARCHITECTURE OF LIGHT — Full-Screen Visual Installation */}
+        <ArtOfIllumination />
+
+        {/* 07. THE ATELIER — Interactive Material Laboratory */}
+        <BespokeAtelier />
+
+        {/* 08. THE PRIVATE ROOM — Exclusive Access & Discretion */}
+        <PrivateWorld
+          onOpenInvitation={() => handleOpenInvitation("Private World Invitation")}
+        />
+
+        {/* 09. THE FAREWELL — Final Cinematic Impression */}
+        <FinalCinematic
+          onExploreTop={handleExploreTop}
+          onRequestAccess={() => handleOpenInvitation("Final Cinematic Inscription")}
+        />
       </main>
-    </div>
+
+      {/* 10. LUXURY EDITORIAL FOOTER */}
+      <LuxuryFooter
+        onRequestAccess={() => handleOpenInvitation("Footer Sanctuary Inscription")}
+      />
+
+      {/* Global Interactive Modals */}
+      <InvitationModal
+        isOpen={isInvitationModalOpen}
+        onClose={() => setIsInvitationModalOpen(false)}
+        initialInterest={invitationInitialInterest}
+      />
+
+      <AtelierInquiryModal
+        isOpen={isAtelierModalOpen}
+        onClose={() => setIsAtelierModalOpen(false)}
+        prefilledScope={atelierPrefilledScope}
+      />
+    </SmoothScrollProvider>
   );
 }

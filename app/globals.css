@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
+@theme {
+  --color-pale: #E8D9C4;
+  --color-gold: #785D32;
+  --color-rouge: #3E160C;
+  --color-off-navy: #050A30;
+  
+  --color-brass: #B59055;
+  --color-brass-light: #D4AF37;
+  --color-champagne: #D9C49D;
+  --color-walnut: #1A0F0A;
+  --color-dark-marble: #070B1A;
+  
+  --font-serif: var(--font-serif), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --pale: #E8D9C4;
+  --gold: #785D32;
+  --rouge: #3E160C;
+  --off-navy: #050A30;
+  --brass: #B59055;
+  --brass-light: #D4AF37;
+  --champagne: #D9C49D;
+  --walnut: #1A0F0A;
+  --dark-marble: #070B1A;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Custom Base Styles */
+html {
+  scroll-behavior: auto !important; /* Lenis handles smooth scrolling */
+  background-color: #050A30;
+  color: #E8D9C4;
+  selection-background-color: #785D32;
+  selection-color: #E8D9C4;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+::selection {
+  background: #785D32;
+  color: #E8D9C4;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #050A30;
+  color: #E8D9C4;
+  overflow-x: hidden;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Luxury Typography Utility Classes */
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Subtle luxury grain effect */
+.bg-grain {
+  background-image: radial-gradient(rgba(232, 217, 196, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Gold foil gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #E8D9C4 0%, #D4AF37 50%, #785D32 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Atmospheric light radial */
+.ambient-glow-warm {
+  background: radial-gradient(circle at 50% 50%, rgba(120, 93, 50, 0.25) 0%, rgba(62, 22, 12, 0.15) 40%, transparent 70%);
+}
+
+.ambient-glow-navy {
+  background: radial-gradient(circle at 50% 50%, rgba(5, 10, 48, 0.8) 0%, rgba(4, 7, 20, 0.95) 100%);
+}
+
+/* Custom fine line border */
+.border-gold-subtle {
+  border-color: rgba(120, 93, 50, 0.28);
+}
+
+.border-pale-subtle {
+  border-color: rgba(232, 217, 196, 0.15);
+}
+
+/* Hide scrollbar for gallery but keep scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Lenis smooth scroll styling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
